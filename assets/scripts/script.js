@@ -3,43 +3,68 @@
 // if <h2>City name<h2> matches last search value then search button active,
 // if not then disable search button, **always have active on page load & reload
 // manage any errors with throw and catch - ensure user gets notified
-// settings on the search to resrtict it to letters only (no post codes) - done
-// convert wind speed from meters / second to km per hour (1m/sec = 3.6/hr so m/sec*3.6 = km/h) -done
+//potential errors **entering a search term that is not a city
+
 const now = moment();
 const date = now.format("ddd, DD MMM YYYY");
+const localstorage = window.localStorage;
+const searchTerms = [];
 
-document.getElementById("todaysDate").innerHTML = date;
-
-// call the Open Weather Map geolocation API to search for a location (q={city name}, limit={number of search results provided})
-fetch(
-  "http://api.openweathermap.org/geo/1.0/direct?q=Geelong&limit=5&appid=909de12bbfb6b56e39909619fcde1183"
-)
-  .then((response) => response.json())
-  .then(function (data) {
-    document.getElementById("cityName").innerHTML = data[0].name;
-    console.log(data);
+document
+  .getElementById("search-btn")
+  .addEventListener("click", function (event) {
+    let searchValue = document.getElementById("search").value;
+    searchTerms.push(searchValue);
+    callWeatherApi(searchValue);
   });
+console.log(searchTerms);
 
-// call the Open Weather Map API to display the weather forcast for a city  (q={city name})
-fetch(
-  "https://api.openweathermap.org/data/2.5/onecall?lat=-38.1741&lon=144.3607&exclude=minutely,hourly&units=metric&appid=909de12bbfb6b56e39909619fcde1183"
-)
-  .then((response) => response.json())
-  .then(function (data) {
-    // convert the wind speed from meters per second to km per hour and round to 1 decimal place
-    const windSpeed = (data.current.wind_speed * 3.6).toFixed(1);
+function callWeatherApi(param) {
+  // call the Open Weather Map geolocation API to search for a location (q={city name}, limit={number of search results provided})
+  fetch(
+    `http://api.openweathermap.org/geo/1.0/direct?q=${param}&limit=1&appid=909de12bbfb6b56e39909619fcde1183`
+  )
+    .then((response) => response.json())
+    .then(function (data) {
+      document.getElementById("cityName").innerHTML = data[0].name;
+      const lat = data[0].lat;
+      const lon = data[0].lon;
+      // call the Open Weather Map API to display the weather forcast for a city  (q={city name})
+      fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=metric&appid=909de12bbfb6b56e39909619fcde1183`
+      )
+        .then((response) => response.json())
+        .then(function (data) {
+          // Render the current weather conditions to the page
+          renderCurrentWeather(data);
+          // Render the 5-Day forcast cards to the page
+          renderforcastCards(data);
+        });
+    });
+}
 
-    document.getElementById(
-      "weatherIcon"
-    ).src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
-    document.getElementById("temp").innerHTML = data.current.temp.toFixed(1);
-    document.getElementById("humidity").innerHTML = data.current.humidity;
-    document.getElementById("windSpeed").innerHTML = windSpeed;
-    document.getElementById("uvIndex").innerHTML = data.current.uvi;
-    console.log("weather forcast: ", typeof data, data);
+function populateSearchHistory() {
+  for (let i = 0; i <= searchTerms.length; i++) {
+    const template = document.createElement("template");
+    template.innerHTML = `
+    <a href="#" class="list-group-item list-group-item-action">${searchValue}</a>
+    `;
+    document.getElementById("history").appendChild(template.content);
+  }
+}
 
-    renderforcastCards(data);
-  });
+function renderCurrentWeather(data) {
+  // convert the wind speed from meters per second to km per hour and round to 1 decimal place
+  const windSpeed = (data.current.wind_speed * 3.6).toFixed(1);
+  document.getElementById("todaysDate").innerHTML = date;
+  document.getElementById(
+    "weatherIcon"
+  ).src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
+  document.getElementById("temp").innerHTML = data.current.temp.toFixed(1);
+  document.getElementById("humidity").innerHTML = data.current.humidity;
+  document.getElementById("windSpeed").innerHTML = windSpeed;
+  document.getElementById("uvIndex").innerHTML = data.current.uvi;
+}
 
 // Create the 5-Day forcast cards
 function renderforcastCards(data) {
@@ -66,5 +91,3 @@ function renderforcastCards(data) {
     document.getElementById("forcastContainer").appendChild(template.content);
   }
 }
-
-//Mon Apr 05 2021 12:00:00 GMT+1000

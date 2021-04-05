@@ -17,12 +17,12 @@
   <aside>
     <form class="form-inline my-2 my-lg-0">
       
-      <input id="search" name="search" class="form-control mr-sm-2" type="search" placeholder="Search for a city" aria-label="Search" pattern="[A-z]*">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <input id="search" name="search" class="form-control mr-sm-2" type="search" placeholder="Search for a city" aria-label="Search" pattern="[A-z\s\W]*">
+      <button id="search-btn" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
       <label for="search">To check a City's weather forcast search the City name</label>
     </form>
 
-    <div class="list-group-flush">
+    <div id="history" class="list-group-flush">
       <h3 class="list-group">Search History:</h3>
       <a href="#" class="list-group-item list-group-item-action">search 1</a>
       <a href="#" class="list-group-item list-group-item-action">search 2</a>
