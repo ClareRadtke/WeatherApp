@@ -1,0 +1,26 @@
+header {
+  margin: 2em 0;
+}
+
+main {
+  color: white;
+  background-color: rgb(1, 1, 63);
+  padding-top: 1em;
+  padding-bottom: 1em;
+
+} 
+
+#dailyForecast li {
+  color: white;
+  background-color: rgb(4, 37, 99);
+}
+
+#uvIndex {
+  padding: 0 .5em; 
+}
+
+.list-group-item {
+  padding-left: .5em;
+  padding-right: 0; 
+  margin-right: .5em;
+}

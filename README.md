@@ -33,5 +33,5 @@ An app to provide current and future weather conditions within a searched city.
 
 ### Other Requirements:
 
-- [] Application resembles the mock-up functionality provided in the homework instructions provided by Trilogy Education Services
+- [x] Application resembles the mock-up functionality provided in the homework instructions provided by Trilogy Education Services
 ![Mock-up functionality image provided by Trilogy Education Services](./assets/images/06-server-side-apis-homework-demo.png)

@@ -2,9 +2,8 @@
 // disable search button until page loads info from last search
 // if <h2>City name<h2> matches last search value then search button active,
 // if not then disable search button, **always have active on page load & reload
-// manage any errors with throw and catch - ensure user gets notified
-
 //potential errors **entering a search term that is not a city
+//- if 202 returned then push to search histroy else alert "please enter a city name to view the forecast"
 
 const now = moment();
 const date = now.format("ddd, DD MMM YYYY");

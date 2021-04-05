@@ -11,77 +11,45 @@
 
 <body>
   <header>
-    <h1>Weather Dashboard</h1>
+    <h1 class="text-center font-weight-bold">Weather Dashboard</h1>
   </header>
-
-  <aside>
-    <form class="form-inline my-2 my-lg-0" id="searchForm">
-      
-      <input id="search" name="search" class="form-control mr-sm-2" type="search" placeholder="Search for a city" aria-label="Search" pattern="[A-z\s\W]*">
-      <button id="search-btn" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
-      <label for="search">To check a City's weather forecast search the City name</label>
-    </form>
-
-    <div id="history" class="list-group-flush">
-      <h3 class="list-group">Search History:</h3>
-      <!-- <a href="#" class="list-group-item list-group-item-action">search 1</a>
-      <a href="#" class="list-group-item list-group-item-action">search 2</a>
-      <a href="#" class="list-group-item list-group-item-action">search 3</a>
-      <a href="#" class="list-group-item list-group-item-action">search 4</a> -->
-    </div>
-
-  </aside>
-
-  <main>
-    <conatiner>
-      <h2>
-        <span id="cityName">City name </span>
-        <span id="todaysDate">date</span>
-        <img id="weatherIcon"></i>
-      </h2>
-      <p>Temperature: <span id="temp"></span> °C</p>
-      <p>Humidity: <span id="humidity"></span> %</p>
-      <p>Wind Speed: <span id="windSpeed"></span> km/h</p>
-      <p>UV Index: <span id="uvIndex"></span></p>
-    </conatiner>
-
-    <div>
-      <h2>5 Day Forecast</h2>
-      <ul id="forecastContainer" class="list-group list-group-horizontal">
-        <!-- <li class="list-group-item">
-          <h5 class="card-title">date</h5>
-          <i>weather indication icon</i>
-          <p class="card-text">Temp: <span></span> °C</p>
-          <p class="card-text">Humidity: <span></span> %</p>
-        </li>
-        <li class="list-group-item">
-          <h5 class="card-title">date</h5>
-          <i>weather indication icon</i>
-          <p class="card-text">Temp: <span></span> °C</p>
-          <p class="card-text">Humidity: <span></span> %</p>
-        </li>
-        <li class="list-group-item">
-          <h5 class="card-title">date</h5>
-          <i>weather indication icon</i>
-          <p class="card-text">Temp: <span></span> °C</p>
-          <p class="card-text">Humidity: <span></span> %</p>
-        </li>
-        <li class="list-group-item">
-          <h5 class="card-title">date</h5>
-          <i>weather indication icon</i>
-          <p class="card-text">Temp: <span></span> °C</p>
-          <p class="card-text">Humidity: <span></span> %</p>
-        </li>
-        <li class="list-group-item">
-          <h5 class="card-title">date</h5>
-          <i>weather indication icon</i>
-          <p class="card-text">Temp: <span></span> °C</p>
-          <p class="card-text">Humidity: <span></span> %</p>
-        </li> -->
-      </ul>
-    </div>
+  <div id="mainContent" class="container">
+    <div class="row justify-content-between">
+      <aside class="col-sm-6 col-lg-4">
+        <form class="form-inline my-2 my-lg-0" id="searchForm">
+          
+          <input id="search" name="search" class="form-control mr-sm-2" type="search" placeholder="Search for a city" aria-label="Search" pattern="[A-z\s\W]*">
+          <button id="search-btn" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+          <label for="search" class="text-muted">To check a City's weather forecast search the City name</label>
+        </form>
     
-  </main>
+        <div id="history" class="list-group-flush">
+          <h3 class="list-group">Search History:</h3>
+          <!-- Search history values display here -->
+        </div>
+      </aside>
+    
+      <main class="col-sm-12 col-lg-8">
+        <container>
+            <h2 id="cityName"></h2>
+            <span id="todaysDate"></span>
+            <img id="weatherIcon"/>                
+          <p>Temperature: <span id="temp"></span> °C</p>
+          <p>Humidity: <span id="humidity"></span> %</p>
+          <p>Wind Speed: <span id="windSpeed"></span> km/h</p>
+          <p>UV Index: <span id="uvIndex"></span></p>
+        </container>
+    
+        <div id="dailyForecast">
+          <h2>5 Day Forecast</h2>
+          <ul id="forecastContainer" class="list-group list-group-horizontal">
+            <!-- Cards containing the forecast for the next 5 days display here -->
+          </ul>
+        </div>
+      </main>
+    </div>
+  </div>
+  
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="assets/scripts/script.js"></script>
