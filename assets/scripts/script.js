@@ -3,6 +3,7 @@
 // if <h2>City name<h2> matches last search value then search button active,
 // if not then disable search button, **always have active on page load & reload
 // manage any errors with throw and catch - ensure user gets notified
+
 //potential errors **entering a search term that is not a city
 
 const now = moment();
@@ -15,9 +16,17 @@ document
   .addEventListener("click", function (event) {
     let searchValue = document.getElementById("search").value;
     searchTerms.push(searchValue);
+    // removeListItems();
+    populateSearchHistory();
     callWeatherApi(searchValue);
   });
-console.log(searchTerms);
+
+document
+  .getElementById("searchForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    document.getElementById("search-btn").click();
+  });
 
 function callWeatherApi(param) {
   // call the Open Weather Map geolocation API to search for a location (q={city name}, limit={number of search results provided})
@@ -29,7 +38,7 @@ function callWeatherApi(param) {
       document.getElementById("cityName").innerHTML = data[0].name;
       const lat = data[0].lat;
       const lon = data[0].lon;
-      // call the Open Weather Map API to display the weather forcast for a city  (q={city name})
+      // call the Open Weather Map API to display the weather forecast for a city  (q={city name})
       fetch(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=metric&appid=909de12bbfb6b56e39909619fcde1183`
       )
@@ -37,19 +46,23 @@ function callWeatherApi(param) {
         .then(function (data) {
           // Render the current weather conditions to the page
           renderCurrentWeather(data);
-          // Render the 5-Day forcast cards to the page
-          renderforcastCards(data);
+          // Render the 5-Day forecast cards to the page
+          renderforecastCards(data.daily.slice(1, 6));
         });
     });
 }
 
 function populateSearchHistory() {
-  for (let i = 0; i <= searchTerms.length; i++) {
-    const template = document.createElement("template");
-    template.innerHTML = `
-    <a href="#" class="list-group-item list-group-item-action">${searchValue}</a>
-    `;
-    document.getElementById("history").appendChild(template.content);
+  removeListItems(".search-history-value");
+  for (let i = 0; i < searchTerms.length; i++) {
+    const el = createElementFromString(`
+    <a href="#" class="list-group-item list-group-item-action search-history-value">${searchTerms[i]}</a>
+    `);
+    document.getElementById("history").appendChild(el);
+
+    el.addEventListener("click", function () {
+      callWeatherApi(searchTerms[i]);
+    });
   }
 }
 
@@ -64,30 +77,46 @@ function renderCurrentWeather(data) {
   document.getElementById("humidity").innerHTML = data.current.humidity;
   document.getElementById("windSpeed").innerHTML = windSpeed;
   document.getElementById("uvIndex").innerHTML = data.current.uvi;
+
+  document.getElementById("uvIndex").style.backgroundColor = uvSeverity(
+    data.current.uvi
+  );
 }
 
-// Create the 5-Day forcast cards
-function renderforcastCards(data) {
-  for (let i = 1; i <= 5; i++) {
-    const forcastDate = moment
-      .unix(data.daily[i].dt)
-      .format("ddd, DD MMM YYYY");
+// Create the 5-Day forecast cards
+function renderforecastCards(days) {
+  removeListItems(".forecastCard");
+  days.forEach((day) => {
+    const forecastDate = moment.unix(day.dt).format("ddd, DD MMM YYYY");
 
-    const template = document.createElement("template");
-    template.innerHTML = `
-    <li class="list-group-item">
-      <h5 class="card-title">${forcastDate}</h5>
+    const el = createElementFromString(`
+    <li class="list-group-item forecastCard">
+      <h5 class="card-title">${forecastDate}</h5>
       <img src="http://openweathermap.org/img/wn/${
-        data.daily[i].weather[0].icon
+        day.weather[0].icon
       }@2x.png"></img>
-      <p class="card-text">Temp: <span>${data.daily[i].temp.max.toFixed(
-        1
-      )}</span> °C</p>
-      <p class="card-text">Humidity: <span>${
-        data.daily[i].humidity
-      }</span> %</p>
+      <p class="card-text">Temp: <span>${day.temp.max.toFixed(1)}</span> °C</p>
+      <p class="card-text">Humidity: <span>${day.humidity}</span> %</p>
     </li>
-    `;
-    document.getElementById("forcastContainer").appendChild(template.content);
-  }
+    `);
+    document.getElementById("forecastContainer").appendChild(el);
+  });
+}
+
+function createElementFromString(str) {
+  const template = document.createElement("div");
+  template.innerHTML = str;
+  return template.children[0];
+}
+
+function removeListItems(className) {
+  let listItems = document.querySelectorAll(className);
+  if (listItems) listItems.forEach((el) => el.remove());
+}
+
+// Assess UV Index severity and colour code
+function uvSeverity(value) {
+  if (value < 3) return "green";
+  if (value < 5) return "orange";
+  return "red";
 }

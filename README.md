@@ -10,10 +10,10 @@ An app to provide current and future weather conditions within a searched city.
 - [] Use local storage to store persistant data
 
 ### Functionality:
-- [] Form inputs
-- [] Search for a city shows current and future weather conditions
-- [] Any searches are added to the search history
-- [] Search for a city displays:
+- [x] Form inputs
+- [x] Search for a city shows current and future weather conditions
+- [x] Any searches are added to the search history
+- [x] Search for a city displays:
   - [x] city name, 
   - [x] date, 
   - [x] icon to represent the current weather, 
@@ -22,14 +22,14 @@ An app to provide current and future weather conditions within a searched city.
   - [x] wind speed, 
   - [x] UV index
 
-- [] Viewing the UV index shows colour indication of if conditions are favorable, moderate, or severe
+- [x] Viewing the UV index shows colour indication of if conditions are favorable, moderate, or severe
 - [x] Viewing a cities future weather conditions shows a 5-day forcast with:
   - [x] date, 
   - [x] icon to represent the current weather,
   - [x] temperature, 
   - [x] humidity
 
-- [] Clicking a city in the search history shows the current and future conditions for that city
+- [x] Clicking a city in the search history shows the current and future conditions for that city
 
 ### Other Requirements:
 
