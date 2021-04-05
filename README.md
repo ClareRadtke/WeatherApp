@@ -3,7 +3,7 @@
 An app to provide current and future weather conditions within a searched city.
 
 [Weather App](https://clareradtke.github.io/WeatherApp/)
-![Demonstration of the weather application]()
+![Demonstration of the weather application](./assets/images/WeatherAppScreenRecording.gif)
 
 ## Requirements
 - [x] Use the [OpenWeather API](https://openweathermap.org/api) to retrieve weather data for cities

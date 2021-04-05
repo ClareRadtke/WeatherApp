@@ -30,7 +30,7 @@ document
 function callWeatherApi(param) {
   // call the Open Weather Map geolocation API to search for a location (q={city name}, limit={number of search results provided})
   fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${param}&limit=1&appid=909de12bbfb6b56e39909619fcde1183`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${param}&limit=1&appid=909de12bbfb6b56e39909619fcde1183`
   )
     .then((response) => response.json())
     .then(function (data) {
