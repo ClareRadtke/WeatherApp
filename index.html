@@ -16,8 +16,10 @@
 
   <aside>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search for a city" aria-label="Search">
+      
+      <input id="search" name="search" class="form-control mr-sm-2" type="search" placeholder="Search for a city" aria-label="Search" pattern="[A-z]*">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <label for="search">To check a City's weather forcast search the City name</label>
     </form>
 
     <div class="list-group-flush">
@@ -32,52 +34,56 @@
 
   <main>
     <conatiner>
-      <h2>City name <span>date</span> <i>weather indication icon</i></h2>
-      <p>Temperature: <span></span> °C</p>
-      <p>Humidity: <span></span> %</p>
-      <p>Wind Speed: <span></span> MPH</p>
-      <p>UV Index: <span></span> </p>
+      <h2>
+        <span id="cityName">City name </span>
+        <span id="todaysDate">date</span>
+        <img id="weatherIcon"></i>
+      </h2>
+      <p>Temperature: <span id="temp"></span> °C</p>
+      <p>Humidity: <span id="humidity"></span> %</p>
+      <p>Wind Speed: <span id="windSpeed"></span> km/h</p>
+      <p>UV Index: <span id="uvIndex"></span> </p>
     </conatiner>
 
     <div>
       <h2>5 Day Forcast</h2>
-      <ul class="list-group list-group-horizontal">
-        <li class="list-group-item">
+      <ul id="forcastContainer" class="list-group list-group-horizontal">
+        <!-- <li class="list-group-item">
           <h5 class="card-title">date</h5>
           <i>weather indication icon</i>
           <p class="card-text">Temp: <span></span> °C</p>
-          <p class="card-text">Temp: <span></span> °C</p>
+          <p class="card-text">Humidity: <span></span> %</p>
         </li>
         <li class="list-group-item">
           <h5 class="card-title">date</h5>
           <i>weather indication icon</i>
           <p class="card-text">Temp: <span></span> °C</p>
-          <p class="card-text">Temp: <span></span> °C</p>
+          <p class="card-text">Humidity: <span></span> %</p>
         </li>
         <li class="list-group-item">
           <h5 class="card-title">date</h5>
           <i>weather indication icon</i>
           <p class="card-text">Temp: <span></span> °C</p>
-          <p class="card-text">Temp: <span></span> °C</p>
+          <p class="card-text">Humidity: <span></span> %</p>
         </li>
         <li class="list-group-item">
           <h5 class="card-title">date</h5>
           <i>weather indication icon</i>
           <p class="card-text">Temp: <span></span> °C</p>
-          <p class="card-text">Temp: <span></span> °C</p>
+          <p class="card-text">Humidity: <span></span> %</p>
         </li>
         <li class="list-group-item">
           <h5 class="card-title">date</h5>
           <i>weather indication icon</i>
           <p class="card-text">Temp: <span></span> °C</p>
-          <p class="card-text">Temp: <span></span> °C</p>
-        </li>
+          <p class="card-text">Humidity: <span></span> %</p>
+        </li> -->
       </ul>
     </div>
     
   </main>
 
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="assets/scripts/script.js"></script>
 </body>
 </html>
