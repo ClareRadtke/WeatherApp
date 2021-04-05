@@ -71,7 +71,7 @@ function renderCurrentWeather(data) {
   document.getElementById("todaysDate").innerHTML = date;
   document.getElementById(
     "weatherIcon"
-  ).src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
+  ).src = `https://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
   document.getElementById("temp").innerHTML = data.current.temp.toFixed(1);
   document.getElementById("humidity").innerHTML = data.current.humidity;
   document.getElementById("windSpeed").innerHTML = windSpeed;
@@ -91,7 +91,7 @@ function renderforecastCards(days) {
     const el = createElementFromString(`
     <li class="list-group-item forecastCard">
       <h5 class="card-title">${forecastDate}</h5>
-      <img src="http://openweathermap.org/img/wn/${
+      <img src="https://openweathermap.org/img/wn/${
         day.weather[0].icon
       }@2x.png"></img>
       <p class="card-text">Temp: <span>${day.temp.max.toFixed(1)}</span> °C</p>
